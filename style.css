@@ -1,0 +1,313 @@
+
+
+/*********** Generalidades ****************/
+*{
+	font-family: 'Roboto', sans-serif;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+:root{
+	--color-primario: #0087aa;
+	--color-verde: #02a96f;
+	--color-secundario: #EF3457;
+	--ancho-tarea: 230px;
+}
+
+body{
+	background-color: #020F1D;
+	color: #eee;
+
+}
+
+
+/***************** Encabezado **********************/
+
+.header{
+	display: flex;
+	align-items: center;
+	justify-content: space-around;	
+	text-transform: uppercase;
+	text-align: center;
+	height: var(--alto-header);
+	background-color: var(--color-primario);
+	padding:.5em;
+	margin-bottom: 1em;
+	box-shadow: 0 0 1em var(--color-primario);
+}
+.header__logo{
+	font-weight: bolder;
+	font-style: italic;
+	letter-spacing: .06em;
+}
+.header__agregar{
+	display: grid;
+	place-items: center;
+	width: 2em;
+	height: 2em;
+	color: inherit;
+	border: none;
+	border-radius: 100vh;
+	font-size: 1em;
+	color: #000;
+	background-color: var(--color-secundario);
+	font-weight: bolder;
+	transition: .2s box-shadow linear;
+}
+.header__agregar:hover{
+	box-shadow: 0 0 1em var(--color-secundario);
+}
+
+/******* Formulario ********/
+
+.form{
+	display: block;
+	width: 60%;
+	max-width: 500px;
+	background-color: #fff2;
+	max-height: 90vh;
+	border-radius: 5px;
+	overflow-y: auto;
+	margin: auto;
+}
+.form h2{
+	font-weight: 100;
+	margin: .5em auto;
+	text-align: center;
+}
+.form__label{
+	display: block;
+	width: 80%;
+	margin: auto;
+}
+.form__input{
+	display: block;
+	width: 80%;
+	min-height: 2em;
+	margin: .5em auto 1.5em;
+	padding: .5em;
+	resize: none;
+	background-color: transparent;
+	color: inherit;
+	border: solid var(--color-primario) 1px;
+	border-radius: 5px;
+	outline: none;
+	font-size: inherit;
+}
+.form__input::placeholder{
+	color: #888;
+}
+.form__input:focus{
+	box-shadow: 0 0 .5em var(--color-primario);
+}
+.form__input:disabled{
+	color: #999;
+	opacity: .6;
+}
+.desc{
+	height: 5em;
+}
+
+.form__guardar{
+	display: block;
+	padding: .5em 1em;
+	margin: 1em auto;
+	background-color: var(--color-verde);
+	color: #eee;
+	border: none;
+	border-radius: 100vh;
+	transition: .2s linear box-shadow;
+}
+.form__guardar:hover{
+	box-shadow: 0 0 1em var(--color-verde);
+}
+
+/*********** Tareas ************/
+.tareas{
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	overflow: auto;
+	width: 98%;
+	overflow: hidden;
+	margin: auto;
+}
+
+.tarea{
+	--color-usuario: yellow;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	flex-direction: column;
+	width: var(--ancho-tarea);
+	height: calc(var(--ancho-tarea) * 1.5);
+	margin: 1em;
+	padding: .5em;
+	border-radius: 5px;
+	border: solid 1px var(--color-usuario);
+	box-shadow: 0 0 .3em var(--color-usuario) inset;
+}
+.tarea__btn{
+	position: absolute;
+	display: block;
+	padding: .4em .8em;
+	top: 0;
+	border: none;
+	font-size: .7em;
+	background-color: var(--color-usuario);
+	color: #000;
+	opacity: .8;
+	font-weight: bold;
+	transition: opacity .1s linear;
+}
+.tarea__btn:hover{
+	opacity: 1;
+	cursor: pointer;
+}
+.btn__eliminar{
+	right: 0;
+	/*color: var(--color-secundario);*/
+}
+.btn__editar{
+	left: 0;
+}
+.tarea__nombre{
+	font-size: 1.1em;
+	text-align: center;
+	margin: .5em auto;
+}
+.tarea__time-container{
+	display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: space-around;
+	font-weight: bolder;
+	font-style: italic;
+	color: var(--color-usuario);
+}
+.tarea__time{
+	color: #000;
+	padding: .5em;
+	border-radius: 100vh;
+	min-width: 5em;
+	text-align: center;
+	font-size: .8em;
+	color: inherit;
+}
+.tarea__descripcion{
+	line-height: 1.5;
+	font-size: .8em;
+	margin: .5em;
+	max-height: 10em;
+	overflow: auto;
+	text-transform: capitalize;
+}
+
+
+
+/***** Modal ****/
+.modal{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	left: 0;
+	top: 0;
+	box-sizing: border-box;
+	background-color: #000d;
+	backdrop-filter: blur(10px);
+}
+.modal__close{
+	position: absolute;
+	top: 1.5em;
+	right: 1.5em;
+	transform: rotateZ(45deg);
+	display: block;
+	width: 1.8em;
+	height: .2em;
+	border-radius: 20em;
+	background-color: #eee;
+	transition: background-color .2s linear;
+}
+.modal__close:hover{
+	background-color: var(--color-secundario);
+}
+.modal__close::before{
+	content: '';
+	display: block;
+	width: inherit;
+	height: inherit;
+	border-radius: inherit;
+	background-color: inherit;
+	transform: rotateZ(-90deg);
+}
+
+
+
+/**************************************  Responsive Design *********************************/
+
+
+/**** Letra ****/
+@media screen and (max-width: 4000px){
+	:root{
+		--ancho-tarea: 320px;
+	}
+	body{
+		font-size: 20px;
+	}
+}
+@media screen and (max-width: 2000px){
+	:root{
+		--ancho-tarea: 220px;
+	}
+	body{
+		font-size: 16px;
+	}
+}
+
+@media screen and (max-width: 1000px){
+	:root{
+		--ancho-tarea: 160px;
+	}
+	body{
+		font-size: 14px;
+	}
+}
+@media screen and (max-width: 600px){
+	:root{
+		--ancho-tarea: 150px;
+	}
+	body{
+		font-size: 14px;
+	}
+}
+
+@media screen and (max-width: 400px){
+	:root{
+		--ancho-tarea: 120px;
+	}
+	body{
+		font-size: 12px;
+	}
+	.form{
+		width: 80%;
+	}
+}
+
+@media screen and (max-width: 300px){
+	:root{
+		--ancho-tarea: 100px;
+	}
+	body{
+		font-size: 10px;
+	}
+}
+
+
+
+/**** formulario ****/
+
