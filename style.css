@@ -1,313 +1,307 @@
 
 
 /*********** Generalidades ****************/
-*{
-	font-family: 'Roboto', sans-serif;
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-}
-:root{
-	--color-primario: #0087aa;
-	--color-verde: #02a96f;
-	--color-secundario: #EF3457;
-	--ancho-tarea: 230px;
-}
+	*{
+		font-family: 'Roboto', sans-serif;
+		padding: 0;
+		margin: 0;
+		box-sizing: border-box;
+	}
+	:root{
+		--color-primario: #0544c1;
+		--color-verde: #2ad69a;
+		--color-secundario: #de4964;
+		font-size: 16px;
+	}
 
-body{
-	background-color: #020F1D;
-	color: #eee;
-
-}
+	body{
+		display: block;
+		background-color: #111;
+		color: #eee;
+		overflow-x: hidden;
+	}
 
 
 /***************** Encabezado **********************/
 
-.header{
-	display: flex;
-	align-items: center;
-	justify-content: space-around;	
-	text-transform: uppercase;
-	text-align: center;
-	height: var(--alto-header);
-	background-color: var(--color-primario);
-	padding:.5em;
-	margin-bottom: 1em;
-	box-shadow: 0 0 1em var(--color-primario);
-}
-.header__logo{
-	font-weight: bolder;
-	font-style: italic;
-	letter-spacing: .06em;
-}
-.header__agregar{
-	display: grid;
-	place-items: center;
-	width: 2em;
-	height: 2em;
-	color: inherit;
-	border: none;
-	border-radius: 100vh;
-	font-size: 1em;
-	color: #000;
-	background-color: var(--color-secundario);
-	font-weight: bolder;
-	transition: .2s box-shadow linear;
-}
-.header__agregar:hover{
-	box-shadow: 0 0 1em var(--color-secundario);
-}
+	.header{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;	
+		text-transform: capitalize;
+		text-align: center;
+		height: var(--alto-header);
+		background-color: var(--color-primario);
+		padding:.5em 1em;
+		/* border-bottom: solid 0.05em var(--color-primario); */
+	}
+	.header__logo{
+		font-weight: bolder;
+		font-style: italic;
+		font-size: 1.3em;
+	}
+	.header__agregar{
+		display: block;
+		padding: .5em;
+		color: inherit;
+		border: none;
+		background-color: transparent;
+		font-size: 1em;
+		font-weight: bolder;
+		transition: .2s color linear, .2s linear background-color;
+		cursor: pointer;
+	}
+	.header__agregar:hover{
+		text-decoration: underline;
+	}
 
 /******* Formulario ********/
 
-.form{
-	display: block;
-	width: 60%;
-	max-width: 500px;
-	background-color: #fff2;
-	max-height: 90vh;
-	border-radius: 5px;
-	overflow-y: auto;
-	margin: auto;
-}
-.form h2{
-	font-weight: 100;
-	margin: .5em auto;
-	text-align: center;
-}
-.form__label{
-	display: block;
-	width: 80%;
-	margin: auto;
-}
-.form__input{
-	display: block;
-	width: 80%;
-	min-height: 2em;
-	margin: .5em auto 1.5em;
-	padding: .5em;
-	resize: none;
-	background-color: transparent;
-	color: inherit;
-	border: solid var(--color-primario) 1px;
-	border-radius: 5px;
-	outline: none;
-	font-size: inherit;
-}
-.form__input::placeholder{
-	color: #888;
-}
-.form__input:focus{
-	box-shadow: 0 0 .5em var(--color-primario);
-}
-.form__input:disabled{
-	color: #999;
-	opacity: .6;
-}
-.desc{
-	height: 5em;
-}
+	.form{
+		display: block;
+		width: 60%;
+		max-width: 500px;
+		background-color: #fff2;
+		max-height: 90vh;
+		border-radius: 5px;
+		overflow-y: auto;
+		margin: auto;
+	}
+	.form h2{
+		font-weight: 100;
+		margin: .5em auto;
+		text-align: center;
+	}
+	.form__label{
+		display: block;
+		width: 80%;
+		margin: auto;
+	}
+	.form__input{
+		display: block;
+		width: 80%;
+		min-height: 2em;
+		margin: .5em auto 1.5em;
+		padding: .5em;
+		resize: none;
+		background-color: transparent;
+		color: inherit;
+		border: solid var(--color-primario) 1px;
+		border-radius: 5px;
+		outline: none;
+		font-size: inherit;
+	}
+	.form__input::placeholder{
+		color: #888;
+	}
+	.form__input:focus{
+		box-shadow: 0 0 .5em var(--color-primario);
+	}
+	.form__input:disabled{
+		color: #999;
+		opacity: .6;
+	}
+	.desc{
+		height: 5em;
+	}
 
-.form__guardar{
-	display: block;
-	padding: .5em 1em;
-	margin: 1em auto;
-	background-color: var(--color-verde);
-	color: #eee;
-	border: none;
-	border-radius: 100vh;
-	transition: .2s linear box-shadow;
-}
-.form__guardar:hover{
-	box-shadow: 0 0 1em var(--color-verde);
-}
+	.form__guardar{
+		display: block;
+		padding: .5em 1em;
+		margin: 1em auto;
+		background-color: var(--color-verde);
+		color: #eee;
+		border: none;
+		border-radius: 100vh;
+		transition: .2s linear box-shadow;
+	}
+	.form__guardar:hover{
+		box-shadow: 0 0 1em var(--color-verde);
+	}
 
 /*********** Tareas ************/
-.tareas{
-	display: flex;
-	align-items: flex-start;
-	justify-content: space-around;
-	flex-wrap: wrap;
-	overflow: auto;
-	width: 98%;
-	overflow: hidden;
-	margin: auto;
-}
+	.tareas{
+		display: grid;
+		grid-template-columns: repeat(4, minmax(20vw, 1fr));
+		grid-auto-columns: auto;
+		gap: 1em;
+		margin: auto;
+	}
 
-.tarea{
-	--color-usuario: yellow;
-	position: relative;
-	display: flex;
-	align-items: center;
-	justify-content: space-around;
-	flex-direction: column;
-	width: var(--ancho-tarea);
-	height: calc(var(--ancho-tarea) * 1.5);
-	margin: 1em;
-	padding: .5em;
-	border-radius: 5px;
-	border: solid 1px var(--color-usuario);
-	box-shadow: 0 0 .3em var(--color-usuario) inset;
-}
-.tarea__btn{
-	position: absolute;
-	display: block;
-	padding: .4em .8em;
-	top: 0;
-	border: none;
-	font-size: .7em;
-	background-color: var(--color-usuario);
-	color: #000;
-	opacity: .8;
-	font-weight: bold;
-	transition: opacity .1s linear;
-}
-.tarea__btn:hover{
-	opacity: 1;
-	cursor: pointer;
-}
-.btn__eliminar{
-	right: 0;
-	/*color: var(--color-secundario);*/
-}
-.btn__editar{
-	left: 0;
-}
-.tarea__nombre{
-	font-size: 1.1em;
-	text-align: center;
-	margin: .5em auto;
-}
-.tarea__time-container{
-	display: flex;
-	width: 100%;
-	align-items: center;
-	justify-content: space-around;
-	font-weight: bolder;
-	font-style: italic;
-	color: var(--color-usuario);
-}
-.tarea__time{
-	color: #000;
-	padding: .5em;
-	border-radius: 100vh;
-	min-width: 5em;
-	text-align: center;
-	font-size: .8em;
-	color: inherit;
-}
-.tarea__descripcion{
-	line-height: 1.5;
-	font-size: .8em;
-	margin: .5em;
-	max-height: 10em;
-	overflow: auto;
-	text-transform: capitalize;
-}
+	.tarea{
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-around;
+		width: min(90%, 16em);
+		height: min(20em, 80vh);
+		margin: .5em auto;
+		padding: .5em;
+
+		overflow: hidden;
+		border-radius: 5px;
+		border: solid 1px var(--color-primario);
+		box-shadow: 0 0 .3em var(--color-primario) inset;
+	}
+
+	.tarea:hover .tarea__btn{
+		transform: none;
+	}
+
+	.tarea__btn{
+		position: absolute;
+		display: grid;
+		place-items: center;
+		width: 5em;
+		height: 1.5em;
+		top: 0;
+		right: 0;
+
+		border: none;
+		background-color: var(--color-primario);
+		opacity: .8;
+		font-weight: bold;
+		transition: opacity .1s linear, transform .2s linear;
+	}
+	.tarea__btn:hover{
+		opacity: 1;
+		cursor: pointer;
+	}
+	.btn__editar{
+		transform: translateX(11em);
+	}
+	.btn__eliminar{
+		right: unset;
+		left: 0;
+		transform: translateX(-11em);
+	}
+
+	.tarea__nombre{
+		color: var(--color-verde);
+		font-size: 1.1em;
+		font-weight: bold;
+		text-align: center;
+		margin: .5em auto;
+	}
+	.tarea__time-container{
+		display: flex;
+		width: 100%;
+		align-items: center;
+		justify-content: space-around;
+		font-weight: bolder;
+		font-style: italic;
+	}
+	.tarea__time{
+		padding: .5em;
+		border-radius: 100vh;
+		min-width: 5em;
+		text-align: center;
+		color: inherit;
+		font-size: 1em;
+	}
+	.tarea__descripcion{
+		line-height: 1.3;
+		font-size: 0.9em;
+		margin: .5em;
+		max-height: 10em;
+		overflow: auto;
+	}
 
 
 
 /***** Modal ****/
-.modal{
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 100vw;
-	height: 100vh;
-	position: fixed;
-	left: 0;
-	top: 0;
-	box-sizing: border-box;
-	background-color: #000d;
-	backdrop-filter: blur(10px);
-}
-.modal__close{
-	position: absolute;
-	top: 1.5em;
-	right: 1.5em;
-	transform: rotateZ(45deg);
-	display: block;
-	width: 1.8em;
-	height: .2em;
-	border-radius: 20em;
-	background-color: #eee;
-	transition: background-color .2s linear;
-}
-.modal__close:hover{
-	background-color: var(--color-secundario);
-}
-.modal__close::before{
-	content: '';
-	display: block;
-	width: inherit;
-	height: inherit;
-	border-radius: inherit;
-	background-color: inherit;
-	transform: rotateZ(-90deg);
-}
+	.modal{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100vw;
+		height: 100vh;
+		position: fixed;
+		left: 0;
+		top: 0;
+		box-sizing: border-box;
+		background-color: #000d;
+		backdrop-filter: blur(10px);
+	}
+	.modal__close{
+		position: absolute;
+		top: 1.5em;
+		right: 1.5em;
+		transform: rotateZ(45deg);
+		display: block;
+		width: 1.8em;
+		height: .2em;
+		border-radius: 20em;
+		background-color: #eee;
+		transition: background-color .2s linear;
+	}
+	.modal__close:hover{
+		background-color: var(--color-secundario);
+	}
+	.modal__close::before{
+		content: '';
+		display: block;
+		width: inherit;
+		height: inherit;
+		border-radius: inherit;
+		background-color: inherit;
+		transform: rotateZ(-90deg);
+	}
 
 
 
 /**************************************  Responsive Design *********************************/
 
 
-/**** Letra ****/
-@media screen and (max-width: 4000px){
-	:root{
-		--ancho-tarea: 320px;
+	/**** Letra ****/
+	@media screen and (max-width: 4000px){
+		:root{
+			font-size: 20px;
+		}
 	}
-	body{
-		font-size: 20px;
+	@media screen and (max-width: 2000px){
+		:root{
+			font-size: 16px;
+		}
 	}
-}
-@media screen and (max-width: 2000px){
-	:root{
-		--ancho-tarea: 220px;
-	}
-	body{
-		font-size: 16px;
-	}
-}
 
-@media screen and (max-width: 1000px){
-	:root{
-		--ancho-tarea: 160px;
+	@media screen and (max-width: 1000px){
+		:root{
+			font-size: 14px;
+		}
+		.tareas{
+			grid-template-columns: repeat(3, minmax(20vw, 1fr));
+		}
 	}
-	body{
-		font-size: 14px;
-	}
-}
-@media screen and (max-width: 600px){
-	:root{
-		--ancho-tarea: 150px;
-	}
-	body{
-		font-size: 14px;
-	}
-}
+	@media screen and (max-width: 600px){
+		:root{
+			font-size: 13px;
+		}
+		.tareas{
+			grid-template-columns: repeat(2, minmax(20vw, 1fr));
+		}
 
-@media screen and (max-width: 400px){
-	:root{
-		--ancho-tarea: 120px;
 	}
-	body{
-		font-size: 12px;
-	}
-	.form{
-		width: 80%;
-	}
-}
 
-@media screen and (max-width: 300px){
-	:root{
-		--ancho-tarea: 100px;
+	@media screen and (max-width: 400px){
+		:root{
+			font-size: 12px;
+		}
+		.form{
+			width: 80%;
+		}
+		.tareas{
+			grid-template-columns: 1fr;
+		}
 	}
-	body{
-		font-size: 10px;
+
+	@media screen and (max-width: 300px){
+		:root{
+			font-size: 11px;
+		}
 	}
-}
 
 
 
-/**** formulario ****/
 
