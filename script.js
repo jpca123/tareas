@@ -55,7 +55,6 @@ function renderData(data) {
 
   for (let dato of data) {
     if (dato.hora === "") dato.hora = "12:00";
-    console.log(dato);
 
     // inicializando objetos
     let tarea = document.createElement("article"),
@@ -74,8 +73,8 @@ function renderData(data) {
     hora.classList.add("tarea__time");
     fecha.classList.add("tarea__time");
     desc.classList.add("tarea__descripcion");
-    btnEditar.classList.add("tarea__btn", "btn__editar");
-    btnEliminar.classList.add("tarea__btn", "btn__eliminar");
+    btnEditar.classList.add("btn", "btn__editar");
+    btnEliminar.classList.add("btn", "btn__danger");
 
     // rellenando informacion
     btnEditar.dataset.key = dato.id;
@@ -102,39 +101,8 @@ function renderData(data) {
   }
 
   contenedorTareas.appendChild(fragmento);
-  console.log("finalizo renderizado");
 }
 
-//crea y retorna nodo de una ventana modal con el form tarea
-function crearModal(accion = "crear") {
-  let modal = document.createElement("div");
-  modal.classList.add("modal");
-  let btnClose = document.createElement("span");
-  btnClose.classList.add("modal__close");
-  modal.appendChild(btnClose);
-
-  modal.innerHTML += `<form class="form" data-accion="${accion}">
-	<h2>Añadir Tarea</h2>
-
-	<input name="id" type="hidden">
-
-	<label class="form__label" for="tarea-nombre">Nombre</label>
-	<input type="text" id="tarea-nombre" class="form__input" name="nombre" minlength="3" placeholder="Escribe un nombre" maxlength="50" required>
-
-	<label class="form__label" for="tarea-descripcion">Descripcion</label>
-	<textarea class="form__input desc"  id="tarea-descripcion" name="desc" minlength="5" placeholder="Escribe una descripcion" maxlength="255" required></textarea>
-
-	<label class="form__label" for="tarea-fecha">Fecha</label>
-	<input type="date" name="fecha" id="tarea-fecha" class="form__input" required>
-
-	<label class="form__label" for="tarea-hora">Hora</label>
-	<input type="time" name="hora" id="tarea-hora" class="form__input">
-
-	<button class="form__guardar" type="submit">Guardar</button>
-	</form>`;
-  document.body.appendChild(modal);
-  return modal;
-}
 
 //recibe el evento sumbit, extrae la informacion y llama manipularData(data)
 function crearTarea(e) {
@@ -144,10 +112,10 @@ function crearTarea(e) {
     descripcion = e.target.desc.value,
     fecha = e.target.fecha.value,
     hora = e.target.hora.value;
-  let accion = e.target.dataset.accion;
+  closeModal();
+  e.target.reset();
 
-  console.log(e.target);
-  cerrarModal(e.target);
+  let accion = e.target.name;
 
   manipularData(
     {
@@ -165,30 +133,27 @@ function crearTarea(e) {
 function manipularData(data, accion = "crear") {
   let transaccion = db.transaction(["Tareas"], "readwrite");
   let almacen = transaccion.objectStore("Tareas");
-  console.log(data, accion);
+
   if (accion === "crear") {
 		delete data.id;
 		almacen.add(data);
+    showInfo("Tarea Agregada con exito", "Exito");
 	}
 
   else if (accion === "actualizar") {
     let idTarea = data.id;
     delete data.id;
-		console.log(idTarea)
     almacen.put(data, idTarea);
+    showInfo("Tarea Editada con exito", "Exito");
+
   }
   cargarData();
-}
-// cierra la ventana modal, recibe el input type=submit
-function cerrarModal(nodo) {
-  nodo.parentElement.parentElement.removeChild(nodo.parentElement);
 }
 
 //recibe la "data" de una tarea y crea modal con formulario esta
 function editarTarea(data) {
-  let modal = crearModal("actualizar");
-  let form = modal.querySelector(".form");
-  console.log(data);
+  showModal("modalEditar")
+  let form = document.forms.actualizar;
   form.id.value = data.id;
   form.nombre.value = data.nombre;
   form.desc.value = data.descripcion;
@@ -201,19 +166,24 @@ function obtenerTarea(key) {
   let transaccion = db.transaction(["Tareas"], "readonly");
   let objectStorage = transaccion.objectStore("Tareas");
   let confirmacion = objectStorage.openCursor();
+
   confirmacion.onsuccess = (e) => {
     let cursor = e.target.result;
+
     if (cursor) {
+
       if (cursor.primaryKey == key) {
         let datosTarea = cursor.value;
         datosTarea.id = cursor.primaryKey;
         editarTarea(datosTarea);
-				cursor.continue();
-      }else console.log("No se encontro el pk");
+
+      }
+      else cursor.continue();
+
     }
   };
   confirmacion.onerror = (e) => {
-    alert("algo ha fallado, intente actualizar la pagina y actualizar luego");
+    showInfo("algo ha fallado, intente actualizar la pagina y actualizar luego", "Error");
   };
 }
 
@@ -223,11 +193,32 @@ function eliminarTarea(key) {
   let almacen = transaccion.objectStore("Tareas");
   let request = almacen.delete(key);
   request.onerror = (e) => {
-    alert(
-      "Fallo la eliminación, intente recrgar la pagina y eliminar entonces"
-    );
+    showInfo("Fallo la eliminación, intente recargar la pagina y eliminar entonces", "Error")
   };
   cargarData();
+}
+
+
+function closeModal(){
+  document.querySelectorAll(".modal__active").forEach(modal => modal.classList.remove("modal__active"));
+}
+
+function showModal(name){
+  let modal = document.getElementById(name);
+  if(!modal) return console.log('no se encontro modal', e.target);
+
+  modal.classList.add("modal__active")
+}
+function showInfo(message, title="Información"){
+  let information = document.querySelector("#modalInformation .modal__information");
+  let titleNode = document.querySelector("#modalInformation .modal__title");
+  if(!information || !titleNode) console.log("no se encontro modal information");
+
+  titleNode.innerHTML = title;
+
+  information.innerHTML = message;
+  closeModal();
+  showModal("modalInformation");
 }
 
 //************ Escucha y delegacion de eventos DOM **************
@@ -235,9 +226,9 @@ function eliminarTarea(key) {
 document.addEventListener("submit", crearTarea);
 
 document.addEventListener("click", (e) => {
-  if (e.target.matches(".modal__close")) cerrarModal(e.target);
-  if (e.target.matches(".header__agregar")) crearModal();
-  if (e.target.matches(".btn__eliminar")) {
+  if (e.target.matches(".modal__close")) closeModal();
+  if (e.target.matches("[data-modal]")) showModal(e.target.dataset.modal);
+  if (e.target.matches(".btn__danger")) {
     try {
       let enteroKey = parseInt(e.target.dataset.key);
       eliminarTarea(enteroKey);
@@ -249,11 +240,15 @@ document.addEventListener("click", (e) => {
     try {
       let enteroKey = parseInt(e.target.dataset.key);
       obtenerTarea(enteroKey);
-    } catch (e) {
+    } catch (err) {
       obtenerTarea(e.target.dataset.key);
     }
   }
 });
+
+document.addEventListener("keydown", e=>{
+  if(e.key === "Escape") closeModal();
+})
 
 //*********************service worker y cache ********************************
 

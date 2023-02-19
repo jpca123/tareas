@@ -4,7 +4,7 @@ let version = 'Version 1';
 self.addEventListener('install', e=>{
 	caches.open(version).then(cache =>{
 		console.log('service worker instalado');
-		cache.addAll(['index.html', 'style.css', 'script.js', 'worker.js', "https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"]);
+		cache.addAll(['index.html', 'style.css', 'script.js', 'worker.js']);
 	})
 })
 
