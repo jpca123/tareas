@@ -9,10 +9,9 @@
 }
 
 :root {
-	--primary-color: rgb(0 120 223);
-	--secundary-color: rgb(204, 74, 74);
+	--primary-color: rgb(13, 110, 253);;
 	--ligth-color: rgb(229, 229, 229);
-	--dark-color: rgb(27, 27, 27);
+	--dark-color: rgb(10, 10, 10);
     --danger-color: rgb(255, 41, 41);
 }
 
@@ -129,9 +128,10 @@ body {
     padding: 1em;
     border-radius: .3em;
     width: 60%;
+	max-width: 80em;
     min-height: 70%;
     line-height: 1.3;
-    background-color: rgb(19, 19, 19);
+    background-color: var(--dark-color);
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -198,27 +198,15 @@ body {
 	height: 5em;
 }
 
-.form__guardar {
-	display: block;
-	padding: .5em 1em;
-	margin: 1em auto;
-	background-color: var(--secundary-color);
-	color: #eee;
-	border: none;
-	border-radius: 100vh;
-	transition: .2s linear box-shadow;
-}
-
-.form__guardar:hover {
-	box-shadow: 0 0 1em var(--secundary-color);
-}
-
 /*********** Tareas ************/
 .tareas {
-	display: grid;
-	grid-template-columns: repeat(4, minmax(20vw, 1fr));
-	grid-auto-columns: auto;
+	display: flex;
+	max-width: 80em;
+	width: 100%;
+	flex-wrap: wrap;
+	align-items: center;
 	gap: 1em;
+	padding: 1em;
 	margin: auto;
 }
 
@@ -228,15 +216,15 @@ body {
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-around;
-	width: min(90%, 16em);
+	width: min(100%, 15em);
 	aspect-ratio: 3/4;
 	margin: .5em auto;
 	padding: .5em;
+	word-break: break-all;
 
 	overflow: hidden;
 	border-radius: 5px;
-	border: solid 1px var(--primary-color);
-	box-shadow: 0 0 .3em var(--primary-color) inset;
+	border: solid thin #8886;
 }
 
 .tarea:hover .btn {
@@ -253,7 +241,6 @@ body {
 	border: none;
 
 	background-color: var(--primary-color);
-	opacity: .8;
 	transition: opacity .1s linear, transform .2s linear;
 }
 .tarea .btn__danger{
@@ -272,7 +259,7 @@ body {
 }
 
 .tarea__nombre {
-	color: var(--secundary-color);
+	color: var(--primary-color);
 	font-size: 1.1em;
 	font-weight: bold;
 	text-align: center;
