@@ -11,7 +11,6 @@ self.addEventListener('install', e=>{
 //cargando peticion de cache o de internet si no es osible
 self.addEventListener('fetch', e=>{
 	e.respondWith(caches.match(e.request).then(archivo =>{
-		console.log(archivo)
 		if(archivo) return archivo;
 		return e.request;
 	}))
